@@ -1,0 +1,11 @@
+.hypothesis
+.project
+.pydevproject
+.settings/
+.tags
+.vagrant/
+venv
+bin
+lib
+include
+tags

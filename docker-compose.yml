@@ -1,0 +1,9 @@
+web:
+    build: .
+    ports:
+      - "6222:6222"
+    links:
+      - "db:redis"
+
+db:
+    image: redis
