@@ -4,45 +4,50 @@ from flask import Flask, request, json
 import uuid
 import redis
 import json
+import re
 
 
 app = Flask(__name__)
 r = redis.StrictRedis(host='redis', port=6379, db=0)
 
-@app.route(u'/upload', methods=['POST', 'PUT'])
-def api_upload():
-    if request.headers['Content-Type'] != 'application/json':
-        return "Unsupported Media Type", 415
-    elif len(request.json['tempurl']) == 0:
-        return "tempurl cannot be null", 415
-    elif len(request.json['data']) == 0:
-        return "415 data cannot be null", 415
-    else:
-        contents = request.json
-        ttl = contents['ttl'] if 'ttl' in contents else 3600
+@app.route(u'/api', methods=['GET', 'POST'])
+def api():
+    # don't accept ints as an url
+    if not isinstance(request.args.get('tempurl'), basestring):
+        return 'NOT VALID TEMPURL\n', 404
+
+    # don't accept empty strings for an url
+    if len(request.args.get('tempurl')) == 0:
+        return 'NOT VALID TEMPURL\n', 404
+
+    tempurl = str(request.args.get('tempurl').encode('utf-8'))
+    # don't accept dodgy URL strings
+    # and our strings need to be larger than 4 characters
+    if not re.match("^[A-Za-z0-9_-]{4,}$", tempurl):
+        return 'NOT VALID TEMPURL\n', 404
+
+    if request.method == 'POST':
+        ttl = int(request.args.get('ttl'))
+        data = request.files['file'].read()
+        # we don't take empty files
+        if len(data) == 0:
+            return 'EMPTY FILE\n', 404
 
         r.setex(
-            contents['tempurl'],
+            tempurl,
             ttl,
-            contents['data']
+            data
         )
-        return "OK", 200
+        return 'OK\n', 200
 
+    if request.method == 'GET':
+        data = r.get(tempurl)
+        r.delete(tempurl)
 
-@app.route(u'/download', methods=['GET'])
-def api_download():
-    if request.headers['Content-Type'] != 'application/json':
-        return "Unsupported Media Type", 415
-    elif len(request.json['tempurl']) == 0:
-        return "tempurl cannot be null", 415
-    else:
-        contents = request.json
-        data = r.get(contents['tempurl'])
-        r.delete(contents['tempurl'])
         if data:
             return data, 200
         else:
-            return 404
+            return 'NOT FOUND\n', 404
 
 
 if __name__ == "__main__":
