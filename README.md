@@ -14,12 +14,20 @@ Deployment:
 Usage:
 =========
 
-    curl -H "Content-Type: application/json" -X POST  -d '{"tempurl":"kasjdfkjsdf123", "data": "kjsdfkjsdf" }' http://127.0.0.1:6222/upload
+    curl -X POST -F file=@config.ini 'http://127.0.0.1:6222/api?tempurl=kjadfadsf&ttl=3600'
     OK
 
-    curl -H "Content-Type: application/json" -GET  -d '{"tempurl":"kasjdfkjsdf123" }' http://127.0.0.1:6222/download
-    kjsdfkjsdf
+    curl -X GET http://127.0.0.1:6222/api?tempurl=kjadfadsf
+    [inifile]
+    x=y
 
-    curl -H "Content-Type: application/json" -GET  -d '{"tempurl":"kasjdfkjsdf123" }' http://127.0.0.1:6222/download
-    Nothing here to see
+    curl -X GET http://127.0.0.1:6222/api?tempurl=kjadfadsf
+    NOT FOUND
 
+    curl -X POST -F file=@config.ini 'http://127.0.0.1:6222/api?tempurl=kjadfadsf&ttl=1'
+    OK
+
+    sleep 2
+
+    curl -X GET http://127.0.0.1:6222/api?tempurl=kjadfadsf
+    NOT FOUND
