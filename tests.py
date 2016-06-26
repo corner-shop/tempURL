@@ -13,7 +13,7 @@ class TestStringMethods(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         os.system('docker build -t azulinho/tempurl .')
-        os.system('docker-compose down')
+        os.system('docker-compose stop')
         os.system('docker-compose up -d')
         time.sleep(10)
 
