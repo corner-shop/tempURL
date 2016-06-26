@@ -5,6 +5,7 @@ python:
 services:
   - docker
 before_install:
+    - curl -sSL https://get.docker.com/ | sh
     - sudo pip install docker-compose
 install:
   - sudo pip install -r dev-requirements.txt
