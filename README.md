@@ -1,3 +1,9 @@
+[![Requirements Status](https://requires.io/github/azulinho/tempurl/requirements.svg?branch=master)](https://requires.io/github/azulinho/tempurl/requirements/?branch=master)
+[![Build Status](https://travis-ci.org/azulinho/tempurl.svg?branch=master)](https://travis-ci.org/azulinho/tempurl)
+[![Coverage Status](https://coveralls.io/repos/azulinho/tempurl/badge.svg?branch=master&service=github)](https://coveralls.io/github/azulinho/tempurl?branch=master)
+
+
+
 TempURL
 =========
 
