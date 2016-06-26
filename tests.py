@@ -6,7 +6,6 @@ import unittest
 import os
 import time
 import requests
-import json
 import StringIO
 import re
 

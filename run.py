@@ -1,7 +1,6 @@
 #!/usr/bin/env python -tt -u
 
-from flask import Flask, request, json
-import uuid
+from flask import Flask, request
 import redis
 import json
 import re
