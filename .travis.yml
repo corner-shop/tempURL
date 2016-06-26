@@ -5,7 +5,7 @@ python:
 services:
   - docker
 before_install:
-    - pip install docker-compose
+    - sudo pip install docker-compose
 install:
   - sudo pip install -r dev-requirements.txt
 script:
