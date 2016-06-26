@@ -1,5 +1,5 @@
 [![Requirements Status](https://requires.io/github/Azulinho/tempURL/requirements.svg?branch=master)](https://requires.io/github/Azulinho/tempURL/requirements/?branch=master)
-[![Build Status](https://travis-ci.org/Azulinho/tempURL.svg?branch=master)](https://travis-ci.org/azulinho/tempurl)
+[![Build Status](https://travis-ci.org/Azulinho/tempURL.svg?branch=master)](https://travis-ci.org/Azulinho/tempurl)
 [![Coverage Status](https://coveralls.io/repos/azulinho/tempurl/badge.svg?branch=master&service=github)](https://coveralls.io/github/azulinho/tempurl?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a787afaa255e496886e9d25ac30fe20c)](https://www.codacy.com/app/mail_34/tempURL?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Azulinho/tempURL&amp;utm_campaign=Badge_Grade)
 
