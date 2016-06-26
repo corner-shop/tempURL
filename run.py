@@ -2,7 +2,6 @@
 
 from flask import Flask, request
 import redis
-import json
 import re
 
 
