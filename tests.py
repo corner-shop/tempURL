@@ -29,7 +29,7 @@ class TestStringMethods(unittest.TestCase):
 
         f = StringIO.StringIO(data)
         files = {'file': f }
-        url = 'http://172.17.0.1:6222/api'
+        url = 'http://127.0.0.1:6222/api'
         values = {'tempurl': tempurl, 'ttl': ttl}
 
         r = requests.post(url, files=files, params=values)
@@ -58,7 +58,7 @@ class TestStringMethods(unittest.TestCase):
         # upload random file
         f = StringIO.StringIO(data)
         files = {'file': f }
-        url = 'http://172.17.0.1:6222/api'
+        url = 'http://127.0.0.1:6222/api'
         values = {'tempurl': tempurl, 'ttl': ttl}
 
         r = requests.post(url, files=files, params=values)
@@ -97,7 +97,7 @@ class TestStringMethods(unittest.TestCase):
         # upload random file
         f = StringIO.StringIO(data)
         files = {'file': f }
-        url = 'http://172.17.0.1:6222/api'
+        url = 'http://127.0.0.1:6222/api'
         values = {'tempurl': tempurl, 'ttl': ttl}
 
         r = requests.post(url, files=files, params=values)
