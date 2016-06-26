@@ -5,8 +5,8 @@ python:
 services:
   - docker
 before_install:
-    - sudo dpkg -r docker
-    - sudo dpkg -r docker-engine
+    - sudo dpkg --purge docker
+    - sudo dpkg --purge docker-engine
     - curl -sSL https://get.docker.com/ | sh
     - sudo pip install docker-compose
 install:
