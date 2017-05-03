@@ -3,10 +3,15 @@
 from flask import Flask, request
 import redis
 import re
+import os
 
 
 app = Flask(__name__)
-r = redis.StrictRedis(host='redis', port=6379, db=0)
+
+redis_host = os.getenv('REDIS_HOST', 'redis')
+redis_port = os.getenv('REDIS_PORT', 6379)
+
+r = redis.StrictRedis(host=redis_host, port=redis_port, db=0)
 
 @app.route(u'/api', methods=['GET', 'POST'])
 def api():
@@ -47,6 +52,25 @@ def api():
         else:
             return 'NOT FOUND\n', 404
 
+@app.route(u'/health', methods=['GET'])
+def health():
+    tempurl = 'health'
+    ttl = 5
+    data = 'probing...'
+
+    r.setex(
+        tempurl,
+        ttl,
+        data
+    )
+
+    data = r.get('health')
+    r.delete('health')
+
+    if data:
+        return data, 200
+    else:
+        return 'NOT FOUND\n', 404
 
 if __name__ == "__main__":
     # add the handlers to the console for local debug

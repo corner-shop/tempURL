@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder ".", "/vagrant"
 
   config.vm.provider "virtualbox" do |vb|
-     vb.memory = "256"
+     vb.memory = "512"
 
      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
      vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
