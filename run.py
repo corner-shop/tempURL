@@ -52,6 +52,25 @@ def api():
         else:
             return 'NOT FOUND\n', 404
 
+@app.route(u'/health', methods=['GET'])
+def health():
+    tempurl = 'health'
+    ttl = 5
+    data = 'probing...'
+
+    r.setex(
+        tempurl,
+        ttl,
+        data
+    )
+
+    data = r.get('health')
+    r.delete('health')
+
+    if data:
+        return data, 200
+    else:
+        return 'NOT FOUND\n', 404
 
 if __name__ == "__main__":
     # add the handlers to the console for local debug
