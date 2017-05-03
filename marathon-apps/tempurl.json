@@ -1,0 +1,52 @@
+{
+  "id": "/tempurl/endpoint",
+  "cpus": 0.01,
+  "mem": 64,
+  "disk": 0,
+  "instances": 1,
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [],
+    "docker": {
+      "image": "azulinho/tempurl",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 6222,
+          "hostPort": 0,
+          "protocol": "tcp",
+          "labels": {}
+        }
+      ],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": true
+    }
+  },
+  "dependencies": [
+    "/tempurl/redis"
+  ],
+  "env": {
+    "REDIS_HOST": "redis-tempurl.marathon.mesos",
+    "REDIS_PORT": "31000"
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "path": "/health",
+      "protocol": "HTTP",
+      "ignoreHttp1xx": false
+    }
+  ],
+  "labels": {
+    "HAPROXY_0_VHOST": "tempurl-endpoint.service.tinc-core-vpn",
+    "HAPROXY_0_GROUP": "external"
+  }
+}
