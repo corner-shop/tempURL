@@ -10,3 +10,4 @@ lib
 include
 tags
 .ropeproject/
+get-pip.py
