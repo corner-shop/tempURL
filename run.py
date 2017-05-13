@@ -17,17 +17,17 @@ r = redis.StrictRedis(host=redis_host, port=redis_port, db=0)
 def api_get():
     # don't accept ints as an url
     if not isinstance(request.args.get('tempurl'), basestring):
-        return 'NOT VALID TEMPURL\n', 400
+        return 'NOT VALID TEMPURL: ints are not valid\n', 400
 
     # don't accept empty strings for an url
     if len(request.args.get('tempurl')) == 0:
-        return 'NOT VALID TEMPURL\n', 400
+        return 'NOT VALID TEMPURL: empty strings are not valid\n', 400
 
     tempurl = str(request.args.get('tempurl').encode('utf-8'))
     # don't accept dodgy URL strings
-    # and our strings need to be larger than 4 characters
+    # and our strings need to be larger than 3 characters
     if not re.match("^[A-Za-z0-9_-]{4,}$", tempurl):
-        return 'NOT VALID TEMPURL\n', 400
+        return 'NOT VALID TEMPURL: tempurl needs to be over 3 chars \n', 400
 
     data = r.get(tempurl)
     r.delete(tempurl)
@@ -43,27 +43,26 @@ def api_get():
 def api_post():
     # don't accept ints as an url
     if not isinstance(request.args.get('tempurl'), basestring):
-        return 'NOT VALID TEMPURL\n', 400
+        return 'NOT VALID TEMPURL: ints are not valid\n', 400
 
     # don't accept empty strings for an url
     if len(request.args.get('tempurl')) == 0:
-        return 'NOT VALID TEMPURL\n', 400
+        return 'NOT VALID TEMPURL: empty strings are not valid\n', 400
 
     tempurl = str(request.args.get('tempurl').encode('utf-8'))
-    # don't accept dodgy URL strings
-    # and our strings need to be larger than 4 characters
+    # and our strings need to be larger than 3 characters
     if not re.match("^[A-Za-z0-9_-]{4,}$", tempurl):
-        return 'NOT VALID TEMPURL\n', 400
+        return 'NOT VALID TEMPURL: tempurl needs to be over 3 chars\n', 400
 
     ttl = int(request.args.get('ttl'))
     # mex value we'll take is 65535
     if ttl > 65535:
-        return 'TTL TOO LARGE\n', 400
+        return 'TTL TOO LARGE: ttl needs to be under 65535\n', 400
 
     data = request.files['file'].read()
     # we don't take empty files
     if len(data) == 0:
-        return 'EMPTY FILE\n', 400
+        return 'EMPTY FILE: data file is empty\n', 400
 
     r.set(
         tempurl,
