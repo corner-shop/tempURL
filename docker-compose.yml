@@ -1,9 +1,11 @@
-web:
-    build: .
-    ports:
-      - "6222:6222"
-    links:
-      - "db:redis"
+version: '2'
+services:
+  redis:
+      image: redis
 
-db:
-    image: redis
+  web:
+      build: .
+      ports:
+        - "6222:6222"
+      depends_on:
+        - redis
