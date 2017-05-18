@@ -212,6 +212,12 @@ class TestStringMethods(unittest.TestCase):
         r = requests.get(url, params=values)
         assert r.status_code == 404
 
+    def test_health_endpoint(self):
+        url = 'http://127.0.0.1:6222/health'
+
+        r = requests.get(url)
+        assert r.status_code == 200
+
 
 if __name__ == '__main__':
     unittest.main()

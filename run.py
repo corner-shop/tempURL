@@ -79,11 +79,11 @@ def health():
     ttl = 5
     data = 'probing...'
 
-    r.setex(
+    r.set(
         tempurl,
-        ttl,
         data
     )
+    r.expire(tempurl, ttl)
 
     data = r.get('health')
     r.delete('health')
